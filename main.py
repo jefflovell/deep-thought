@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.optim as optim
 
 #logging
-current_time = datetime.datetime.now("US/Eastern")
+start_time = datetime.datetime.now()
 
 #load dataset
 dataset = np.loadtxt('pima-indians-diabetes.csv', delimiter = ',')
@@ -14,7 +14,7 @@ dataset = np.loadtxt('pima-indians-diabetes.csv', delimiter = ',')
 #split data to features (inputs) and label (outputs)
 #    y = fn(X)
 features = dataset[:,0:8]
-output = dataset[:,8]
+label = dataset[:,8]
 
 #convert numpy matrices to 32bit float tensors
 #   to avoid implicit conversion issues
@@ -51,6 +51,7 @@ batch_size = 10
 
 for epoch in range(number_of_epochs):
     for i in range(0, len(features), batch_size):
+        batch_start = datetime.datetime.now()
         features_batch = features[i:i + batch_size]
         label_prediction = model_3layer(features_batch)
         label_batch = label[i:i + batch_size]
@@ -58,12 +59,13 @@ for epoch in range(number_of_epochs):
         optimizer_algorithm.zero_grad()
         loss.backward()
         optimizer_algorithm.step()
+        batch_finish = datetime.datetime.now()
         with open("model_3layer_training.log", "a") as log:
-            log.write(f"Current Time: {current_time} | Finished batch {i} of {batch_size}")
+            log.write(f"Starting epoch {epoch}, batch {i} at {datetime.datetime.now()}...\n\tFinished batch {i} of {batch_size} at {batch_finish}")
     with open("model_3layer_training.log", "a") as log:
-        log.write(f"Current Time: {current_time} | Finished epoch {epoch}, latest loss {loss}")
-    print(f"Current Time: {current_time} | Finished epoch {epoch}, latest loss {loss}")
+        log.write(f"Starting epoch {epoch} of {number_of_epochs} at {datetime.datetime.now()}\n\tFinished epoch {epoch}, latest loss {loss}")
+    print(f"Current Time: {datetime.datetime.now()} | Finished epoch {epoch}, latest loss {loss}")
 
-print(f"Finished training {number_of_epochs} epochs.\nCheck logs for more info.\nGoodbye.")
+print(f"Finished training {number_of_epochs} epochs at {datetime.datetime.now()}\nCheck logs for more info.\nGoodbye.")
 
 
