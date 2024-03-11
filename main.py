@@ -15,4 +15,18 @@ output = dataset[:,8]
 inputs = torch.tensor(inputs, dtype = torch.float32)
 output = torch.tensor(output, dtype = torch.float32).reshape(-1, 1)
 
-print(output.shape)
+# create the classifier model
+model_3layer = nn.Sequential(
+  # fully connected hidden layer | 8 => 12
+  nn.Linear(8, 12),
+  # rectified linear unit activation layer (12 neuron)
+  nn.ReLU(),
+  # fully connected hidden layer | 12 => 8
+  nn.Linear(12, 8),
+  # rectified linear unit activation layer (8 neuron)
+  nn.ReLU(),
+  # fully connect hidden layer | 8 => 1
+  nn.Linear(8, 1)
+  # sigmoid activation layer (1 neuron)
+  nn.Sigmoid()
+)
