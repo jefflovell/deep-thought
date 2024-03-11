@@ -26,7 +26,11 @@ model_3layer = nn.Sequential(
   # rectified linear unit activation layer (8 neuron)
   nn.ReLU(),
   # fully connect hidden layer | 8 => 1
-  nn.Linear(8, 1)
+  nn.Linear(8, 1),
   # sigmoid activation layer (1 neuron)
   nn.Sigmoid()
 )
+
+# select loss function & optimizer
+loss_function = nn.BCELoss() #binary cross entropy
+optimizer_algorithm = optim.Adam(model_3layer.parameters(), lr=0.001)
