@@ -43,10 +43,10 @@ loss_function = nn.BCELoss()
 #   Adam (Adaptive Moment Estimation) optimizer
 #   with the default learning rate of 0.001
 #   This is gradient descent with momentum
-optimizer_algorithm = optim.Adam(model_3layer.parameters(), lr=0.001)
+optimizer_algorithm = optim.Adam(model_3layer.parameters(), lr=0.0005)
 
 #train the model
-number_of_epochs = 100
+number_of_epochs = 1000
 batch_size = 10
 
 for epoch in range(number_of_epochs):
@@ -61,11 +61,11 @@ for epoch in range(number_of_epochs):
         optimizer_algorithm.step()
         batch_finish = datetime.datetime.now()
         with open("model_3layer_training.log", "a") as log:
-            log.write(f"Starting epoch {epoch}, batch {i} at {datetime.datetime.now()}...\n\tFinished batch {i} of {batch_size} at {batch_finish}")
+            log.write(f"Starting epoch {epoch}, batch {i} at {datetime.datetime.now()}\n\tFinished batch {i} of {batch_size * number_of_epochs} at time: {batch_finish}")
     with open("model_3layer_training.log", "a") as log:
         log.write(f"Starting epoch {epoch} of {number_of_epochs} at {datetime.datetime.now()}\n\tFinished epoch {epoch}, latest loss {loss}")
     print(f"Current Time: {datetime.datetime.now()} | Finished epoch {epoch}, latest loss {loss}")
 
-print(f"Finished training {number_of_epochs} epochs at {datetime.datetime.now()}\nCheck logs for more info.\nGoodbye.")
+print(f"Finished training {number_of_epochs} epochs at {datetime.datetime.now()} | latest loss {loss}\nCheck logs for more info.\nGoodbye.")
 
 
