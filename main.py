@@ -62,7 +62,7 @@ for epoch in range(number_of_epochs):
         loss.backward()
         optimizer_algorithm.step()
         batch_finish = dt.datetime.now()
-        batch_runtime = (batch_start - batch_finish).microseconds
+        batch_runtime = (batch_finish - batch_start).microseconds
         with open("model_3layer_training.log", "a") as log:
             log.write(f"Starting epoch {epoch}, batch {i} at {dt.datetime.now()}\n\tFinished batch {i} of {batch_size * number_of_epochs} in {batch_runtime / 1000} milliseconds ")
     with open("model_3layer_training.log", "a") as log:
@@ -70,7 +70,7 @@ for epoch in range(number_of_epochs):
     print(f"Current Time: {dt.datetime.now()} | Finished epoch {epoch}, latest loss {loss}")
 
 run_finish = dt.datetime.now()
-run_runtime = (run_start - run_finish).total_seconds
+run_runtime = (run_finish - run_start).total_seconds()
 
 print(f"Finished training {number_of_epochs} epochs in {run_runtime} seconds | latest loss {loss}\nCheck logs for more info.\nGoodbye.")
 
